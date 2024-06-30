@@ -1,6 +1,6 @@
 # BlindMnemonic
 This tool allows two operators to create a mnemonic seed so that nobody has access to all the words.\
-Each operator obtains a part of the mnemonic seed. At the end, the tool provides some deposit addresses related to the generated mnemonic, without disclosing it.\
+Each operator obtains a part of the mnemonic seed. At the end, the tool provides some deposit addresses related to the generated mnemonic, without disclosing it.
 
 ## How to use the tool
 Install python virtual environments
@@ -38,7 +38,7 @@ pytohn3 blindmnemonic.py
 ```
 Take note of the parts of the mnemonic and store them in a safe place, they cannot be recovered.\
 At the end, a printable pdf with the desired deposit address and the related QR code is shown and saved in the PaperWallet folder.\
-To read QR codes, QtQR may be useful.\
+To read QR codes, QtQR may be useful.
 ```
 sudo apt install qtqr
 ```
