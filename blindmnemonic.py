@@ -9,9 +9,15 @@ from hdwallet import HDWallet
 from hdwallet.symbols import BTC, ETH, LTC, DASH, ZEC, DOGE, BTCTEST
 import qrcode
 import pdfkit
+import os
 from os.path import exists
 import subprocess
 import binascii
+
+
+# Change Working Directory for AnuBitux environment
+user_folder = os.getlogin()
+os.chdir('/home/' + user_folder + '/Documents/')
 
 
 # Obtain secure random numbers
@@ -245,7 +251,7 @@ class FirstWindow:
                 index_list_int.append(int(index_list[b], 2))
                 b += 1
 
-            f = open('Wordlists/b39en', 'r')  # Opening English wordlist, just because the others are useless
+            f = open('/opt/Tools/WalletGen/BlindMnemonic/Wordlists/b39en', 'r')  # Opening English wordlist, just because the others are useless
             half_mnemonic = []
             w = 0
             while w < len(index_list_int):
@@ -330,7 +336,7 @@ class SecondWindow:
             bin_sec_half = hex_to_binary(sec_half_key)
             bin_seed = bin_first_half + bin_sec_half
             # Now add checksum and other stuff, generate the full mnemonic, ignore the first 5 or the first 11 words when creating pdf
-            f = open('Wordlists/b39en', 'r')  # Opening English wordlist, just because the others are useless
+            f = open('/opt/Tools/WalletGen/BlindMnemonic/Wordlists/b39en', 'r')  # Opening English wordlist, just because the others are useless
             mnemonic_list = binary_string_to_mnemonic(bin_seed, f)
             f.close()
 
