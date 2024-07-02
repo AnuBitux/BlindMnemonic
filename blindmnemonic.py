@@ -106,7 +106,7 @@ def binary_string_to_mnemonic(binary_string, word_list_file):
         index_list_int.append(int(index_list[b], 2))
         b += 1
 
-    f = open('Wordlists/b39en', 'r')  # Opening English wordlist, just because the others are useless
+    f = open('/opt/Tools/WalletGen/BlindMnemonic/Wordlists/b39en', 'r')  # Opening English wordlist, just because the others are useless
     mnemonic = []
     w = 0
     while w < len(index_list_int):
