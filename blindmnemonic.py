@@ -13,6 +13,7 @@ import os
 from os.path import exists
 import subprocess
 import binascii
+from hdwallet.utils import is_mnemonic
 
 
 # Change Working Directory for AnuBitux environment
@@ -402,6 +403,9 @@ class ThirdWindow:
         if len(mnemonic_list) != 12 and len(mnemonic_list) != 24:
             show_popup('Something has gone wrong, consider restarting the process')
             exit()
+        if is_mnemonic(' '.join(mnemonic_list), 'english') is False:
+        	show_popup('Something has gone wrong, consider restarting the process')
+        	exit()
         if coin_sel == 'Bitcoin':
             hdwallet: HDWallet = HDWallet(symbol=BTC)
             hdwallet.from_mnemonic(mnemonic=(' '.join(mnemonic_list)), passphrase='', language='english')
