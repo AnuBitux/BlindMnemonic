@@ -397,6 +397,7 @@ class ThirdWindow:
     def gen_public_paper(self):
         global coin_sel
         coin_sel = self.coin_sel.get()
+        # Security checks
         if half_mnemonic_string == '' or sec_half_mnemonic_string == '':
             show_popup('Something has gone wrong, consider restarting the process')
             exit()
@@ -406,6 +407,15 @@ class ThirdWindow:
         if is_mnemonic(' '.join(mnemonic_list), 'english') is False:
         	show_popup('Something has gone wrong, consider restarting the process')
         	exit()
+        first_words = half_mnemonic_string.split()
+        ind_test = 0
+        while ind_test < len(first_words):
+            if first_words[ind_test] != mnemonic_list[ind_test]:
+                show_popup('Something has gone damn wrong, consider restarting the process')
+                exit()
+            else:
+                ind_test += 1
+                
         if coin_sel == 'Bitcoin':
             hdwallet: HDWallet = HDWallet(symbol=BTC)
             hdwallet.from_mnemonic(mnemonic=(' '.join(mnemonic_list)), passphrase='', language='english')
