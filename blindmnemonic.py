@@ -6,7 +6,7 @@ import random
 import os
 import hashlib
 from hdwallet import HDWallet
-from hdwallet.symbols import BTC, ETH, LTC, DASH, ZEC, DOGE, BTCTEST
+from hdwallet.symbols import BTC, ETH, LTC, DASH, ZEC, DOGE, TRX
 import qrcode
 import pdfkit
 import os
@@ -14,10 +14,12 @@ from os.path import exists
 import subprocess
 import binascii
 from hdwallet.utils import is_mnemonic
+import getpass
 
 
 # Change Working Directory for AnuBitux environment
-user_folder = os.getlogin()
+#user_folder = os.getlogin()
+user_folder = getpass.getuser()
 os.chdir('/home/' + user_folder + '/Documents/')
 
 
@@ -382,7 +384,7 @@ class ThirdWindow:
         # Available coins list
         self.coin_sel = tk.StringVar()
         self.coin_sel.set("Bitcoin")  # Default
-        self.menu = tk.OptionMenu(master, self.coin_sel, "Bitcoin", "Ethereum (EVM)", "Litecoin", "Dash", "ZCash", "Dogecoin", "Bitcoin testnet")
+        self.menu = tk.OptionMenu(master, self.coin_sel, "Bitcoin", "Ethereum (EVM)", "Litecoin", "Dash", "ZCash", "Dogecoin", "Tron")
         self.menu.pack()
 
         # Generates pdf with public addresses and QR codes
@@ -397,7 +399,6 @@ class ThirdWindow:
     def gen_public_paper(self):
         global coin_sel
         coin_sel = self.coin_sel.get()
-        # Security checks
         if half_mnemonic_string == '' or sec_half_mnemonic_string == '':
             show_popup('Something has gone wrong, consider restarting the process')
             exit()
@@ -415,7 +416,7 @@ class ThirdWindow:
                 exit()
             else:
                 ind_test += 1
-                
+#        show_popup(f'Used words: {mnemonic_list}')  # Use only for debug or tests
         if coin_sel == 'Bitcoin':
             hdwallet: HDWallet = HDWallet(symbol=BTC)
             hdwallet.from_mnemonic(mnemonic=(' '.join(mnemonic_list)), passphrase='', language='english')
@@ -458,13 +459,13 @@ class ThirdWindow:
             address = hdwallet.p2pkh_address()
             Address_type = 'Dogecoin public address'
             der_path = "m/44'/3'/0'/0"
-        elif coin_sel == 'Bitcoin testnet':
-            hdwallet: HDWallet = HDWallet(symbol=BTCTEST)
+        elif coin_sel == 'Tron':
+            hdwallet: HDWallet = HDWallet(symbol=TRX)
             hdwallet.from_mnemonic(mnemonic=(' '.join(mnemonic_list)), passphrase='', language='english')
-            hdwallet.from_path(f"m/44'/1'/0'/0/0")
+            hdwallet.from_path(f"m/44'/195'/0'/0/0")
             address = hdwallet.p2pkh_address()
-            Address_type = 'Bitcoin testnet public address'
-            der_path = "m/44'/1'/0'/0"
+            Address_type = 'Tron public address'
+            der_path = "m/44'/195'/0'/0"
 
         # Creating QR code for the public address
         makeqr(address,'public_address.png')
