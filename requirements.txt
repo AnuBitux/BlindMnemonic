@@ -1,5 +1,6 @@
 tk
-hdwallet
+hdwallet==2.2.1
 qrcode
 pdfkit
 pillow
+getpass4
